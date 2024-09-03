@@ -38,7 +38,20 @@ def scrape_next_page_link(html_content):
 # Requisito 4
 def scrape_news(html_content):
     """Seu código deve vir aqui"""
-    raise NotImplementedError
+    qop = {}
+    selector = Selector(text=html_content)
+    qop["url"] = selector.css("link[rel=canonical]::attr(href)").get()
+    qop["title"] = selector.css(".entry-title::text").get().strip()
+    qop["timestamp"] = selector.css(".meta-date::text").get()
+    qop["writer"] = selector.css(".author a::text").get()
+    qop["reading_time"] = int(
+        selector.css(".meta-reading-time::text").get().split()[0]
+    )
+    qop["summary"] = "".join(
+        selector.css(".entry-content > p:first-of-type *::text").getall()
+    ).strip()
+    qop["category"] = selector.css(".category-style .label::text").get()
+    return qop
 
 
 # Requisito 5
