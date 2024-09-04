@@ -1,4 +1,5 @@
-from tech_news import db
+from tech_news.database import db
+from datetime import datetime
 
 
 # Requisito 7
