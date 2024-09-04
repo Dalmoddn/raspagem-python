@@ -1,7 +1,13 @@
+from tech_news import db
+
+
 # Requisito 7
 def search_by_title(title):
     """Seu código deve vir aqui"""
-    raise NotImplementedError
+    sven = []
+    for bar in db.news.find({"title": {"$regex": title, "$options": "i"}}):
+        sven.append((bar["title"], bar["url"]))
+    return sven
 
 
 # Requisito 8
